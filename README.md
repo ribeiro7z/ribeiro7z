@@ -50,7 +50,6 @@
     }
 
     .overlay {
-      background: rgba(0, 0, 0, 0.6);
       backdrop-filter: blur(10px);
       border-radius: 20px;
       padding: 30px;
@@ -98,6 +97,9 @@
     p {
       font-size: 14px;
       margin-bottom: 20px;
+      background: rgba(0, 0, 0, 0.6);
+      padding: 10px;
+      border-radius: 10px;
     }
 
     .main-buttons a {
@@ -116,11 +118,11 @@
     }
 
     .main-buttons a:first-child div {
-      background: #FF007F; /* Rosa Choque */
+      background: #FF007F;
     }
 
     .main-buttons a:last-child div {
-      background: #0061f2; /* Azul mais forte */
+      background: #0061f2;
     }
 
     .main-buttons img {
@@ -154,28 +156,83 @@
     .play-button:hover {
       background-color: #e60000;
     }
+
+    @media (max-width: 768px) {
+      .container {
+        height: 100vh;
+        padding: 20px;
+        align-items: center;
+      }
+
+      .overlay {
+        width: 100%;
+        height: 100%;
+        border-radius: 0;
+        padding: 20px;
+        max-width: none;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+      }
+
+      .profile-img {
+        width: 80px;
+        height: 80px;
+        margin-bottom: 10px;
+      }
+
+      h1 {
+        font-size: 22px;
+      }
+
+      p {
+        font-size: 13px;
+        margin: 10px 0;
+      }
+
+      .main-buttons {
+        flex-direction: column;
+        align-items: center;
+      }
+
+      .main-buttons a {
+        display: block;
+        margin: 10px 0;
+      }
+
+      .main-buttons div {
+        width: 100%;
+        justify-content: center;
+      }
+
+      .social-icons {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        margin-top: 15px;
+      }
+
+      .play-button {
+        width: 100%;
+        padding: 12px;
+        font-size: 14px;
+      }
+    }
   </style>
 </head>
 <body>
   <video class="bg-video" autoplay loop muted>
     <source src="https://static.videezy.com/system/resources/previews/000/040/388/original/Night_Car_Drift.mp4" type="video/mp4" />
-    Seu navegador não suporta vídeo em fundo.
   </video>
-
   <canvas id="snow"></canvas>
-
   <div class="container">
     <div class="overlay">
       <img src="https://i.imgur.com/zQTbZiw.jpeg" class="profile-img" alt="Avatar" />
-
-      <!-- Partículas ao redor do nome -->
       <div class="particle-wrapper">
         <div id="particles-js"></div>
         <h1>DEV @ribeiro7z</h1>
       </div>
-
       <p>A falsidade é apenas uma das coisas que odeio</p>
-
       <div class="main-buttons" style="margin: 20px 0;">
         <a href="https://www.instagram.com/ribeiro7z/" target="_blank">
           <div><img src="https://i.imgur.com/R4XVdg1.jpeg" alt="Instagram Icon">Instagram</div>
@@ -184,7 +241,6 @@
           <div><img src="https://i.imgur.com/k0VTCPq.jpeg" alt="Discord Icon">Discord</div>
         </a>
       </div>
-
       <div class="social-icons">
         <a href="#"><i class="fab fa-spotify"></i></a>
         <a href="#"><i class="fab fa-paypal"></i></a>
@@ -193,22 +249,18 @@
         <a href="#"><i class="fab fa-twitter"></i></a>
         <a href="#"><i class="fab fa-facebook-f"></i></a>
       </div>
-
-      <!-- Botão para iniciar a música -->
       <button class="play-button" onclick="playMusic()">Tocar Música</button>
     </div>
   </div>
 
-  <!-- Música em background (inicialmente com volume 0) -->
   <iframe id="audio-frame" width="0" height="0" src="https://www.youtube.com/embed/JfmmSCLIT3k?start=29&autoplay=0&mute=1&controls=0" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
 
   <script>
     function playMusic() {
       const iframe = document.getElementById('audio-frame');
-      iframe.src = "https://www.youtube.com/embed/JfmmSCLIT3k?start=29&autoplay=1&mute=0&controls=0"; // Habilita o áudio e inicia a música
+      iframe.src = "https://www.youtube.com/embed/JfmmSCLIT3k?start=29&autoplay=1&mute=0&controls=0";
     }
 
-    // Partículas de Neve
     const canvas = document.getElementById("snow");
     const ctx = canvas.getContext("2d");
     let width = canvas.width = window.innerWidth;
@@ -265,49 +317,19 @@
       height = canvas.height = window.innerHeight;
     };
 
-    // Partículas em formato de "7" (linha de partículas)
     particlesJS("particles-js", {
       particles: {
-        number: {
-          value: 80, // Número de partículas
-          density: {
-            enable: true,
-            value_area: 300
-          }
-        },
-        color: {
-          value: "#ffffff"
-        },
-        shape: {
-          type: "circle"
-        },
-        opacity: {
-          value: 0.6
-        },
-        size: {
-          value: 5
-        },
-        move: {
-          enable: true,
-          speed: 5, // VELOCIDADE MAIS RÁPIDA AQUI
-          direction: "none",
-          random: true
-        },
-        line_linked: {
-          enable: false
-        }
+        number: { value: 80, density: { enable: true, value_area: 300 } },
+        color: { value: "#ffffff" },
+        shape: { type: "circle" },
+        opacity: { value: 0.6 },
+        size: { value: 5 },
+        move: { enable: true, speed: 5, direction: "none", random: true },
+        line_linked: { enable: false }
       },
-      "interactivity": {
-        "detect_on": "canvas",
-        "events": {
-          "onhover": {
-            "enable": false
-          },
-          "onclick": {
-            "enable": false
-          },
-          "resize": true
-        }
+      interactivity: {
+        detect_on: "canvas",
+        events: { onhover: { enable: false }, onclick: { enable: false }, resize: true }
       },
       retina_detect: true
     });
