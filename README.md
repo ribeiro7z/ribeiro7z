@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Gui Gostozo</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap" rel="stylesheet"/>
+  <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Poppins', sans-serif;
+    }
+
+    body, html {
+      height: 100%;
+      overflow: hidden;
+      background: url('https://i.imgur.com/jYyktZg.jpeg') no-repeat center center fixed;
+      background-size: cover;
+    }
+
+    video.bg-video {
+      position: fixed;
+      top: 0;
+      left: 0;
+      object-fit: cover;
+      width: 100vw;
+      height: 100vh;
+      z-index: -2;
+    }
+
+    canvas#snow {
+      position: fixed;
+      top: 0;
+      left: 0;
+      pointer-events: none;
+      z-index: 0;
+      width: 100%;
+      height: 100%;
+    }
+
+    .container {
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .overlay {
+      background: rgba(0, 0, 0, 0.6);
+      backdrop-filter: blur(10px);
+      border-radius: 20px;
+      padding: 30px;
+      max-width: 400px;
+      margin: auto;
+      text-align: center;
+      color: white;
+      position: relative;
+      z-index: 1;
+    }
+
+    .particle-wrapper {
+      position: relative;
+      width: 100%;
+      height: 80px;
+      margin-bottom: 10px;
+    }
+
+    #particles-js {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    h1 {
+      font-size: 28px;
+      margin: 0;
+      position: relative;
+      z-index: 2;
+    }
+
+    .profile-img {
+      width: 100px;
+      height: 100px;
+      border-radius: 50%;
+      object-fit: cover;
+      margin-bottom: 15px;
+      border: 2px solid white;
+    }
+
+    p {
+      font-size: 14px;
+      margin-bottom: 20px;
+    }
+
+    .main-buttons a {
+      text-decoration: none;
+    }
+
+    .main-buttons div {
+      display: inline-block;
+      margin: 0 10px;
+      padding: 10px 20px;
+      border-radius: 30px;
+      color: white;
+      font-weight: bold;
+      display: flex;
+      align-items: center;
+    }
+
+    .main-buttons a:first-child div {
+      background: #FF007F; /* Rosa Choque */
+    }
+
+    .main-buttons a:last-child div {
+      background: #0061f2; /* Azul mais forte */
+    }
+
+    .main-buttons img {
+      width: 25px;
+      height: 25px;
+      margin-right: 10px;
+    }
+
+    .social-icons a {
+      color: white;
+      margin: 0 10px;
+      font-size: 20px;
+      transition: 0.3s;
+    }
+
+    .social-icons a:hover {
+      color: #aaa;
+    }
+
+    .play-button {
+      background-color: red;
+      padding: 15px 30px;
+      border: none;
+      color: white;
+      font-size: 16px;
+      border-radius: 30px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    .play-button:hover {
+      background-color: #e60000;
+    }
+  </style>
+</head>
+<body>
+  <video class="bg-video" autoplay loop muted>
+    <source src="https://static.videezy.com/system/resources/previews/000/040/388/original/Night_Car_Drift.mp4" type="video/mp4" />
+    Seu navegador não suporta vídeo em fundo.
+  </video>
+
+  <canvas id="snow"></canvas>
+
+  <div class="container">
+    <div class="overlay">
+      <img src="https://i.imgur.com/zQTbZiw.jpeg" class="profile-img" alt="Avatar" />
+
+      <!-- Partículas ao redor do nome -->
+      <div class="particle-wrapper">
+        <div id="particles-js"></div>
+        <h1>DEV @ribeiro7z</h1>
+      </div>
+
+      <p>A falsidade é apenas uma das coisas que odeio</p>
+
+      <div class="main-buttons" style="margin: 20px 0;">
+        <a href="https://www.instagram.com/ribeiro7z/" target="_blank">
+          <div><img src="https://i.imgur.com/R4XVdg1.jpeg" alt="Instagram Icon">Instagram</div>
+        </a>
+        <a href="https://discord.gg/pDnFm3bA" target="_blank">
+          <div><img src="https://i.imgur.com/k0VTCPq.jpeg" alt="Discord Icon">Discord</div>
+        </a>
+      </div>
+
+      <div class="social-icons">
+        <a href="#"><i class="fab fa-spotify"></i></a>
+        <a href="#"><i class="fab fa-paypal"></i></a>
+        <a href="#"><i class="fab fa-discord"></i></a>
+        <a href="#"><i class="fab fa-twitch"></i></a>
+        <a href="#"><i class="fab fa-twitter"></i></a>
+        <a href="#"><i class="fab fa-facebook-f"></i></a>
+      </div>
+
+      <!-- Botão para iniciar a música -->
+      <button class="play-button" onclick="playMusic()">Tocar Música</button>
+    </div>
+  </div>
+
+  <!-- Música em background (inicialmente com volume 0) -->
+  <iframe id="audio-frame" width="0" height="0" src="https://www.youtube.com/embed/JfmmSCLIT3k?start=29&autoplay=0&mute=1&controls=0" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+
+  <script>
+    function playMusic() {
+      const iframe = document.getElementById('audio-frame');
+      iframe.src = "https://www.youtube.com/embed/JfmmSCLIT3k?start=29&autoplay=1&mute=0&controls=0"; // Habilita o áudio e inicia a música
+    }
+
+    // Partículas de Neve
+    const canvas = document.getElementById("snow");
+    const ctx = canvas.getContext("2d");
+    let width = canvas.width = window.innerWidth;
+    let height = canvas.height = window.innerHeight;
+    let snowflakes = [];
+
+    function createSnowflakes() {
+      for (let i = 0; i < 100; i++) {
+        snowflakes.push({
+          x: Math.random() * width,
+          y: Math.random() * height,
+          r: Math.random() * 4 + 1,
+          d: Math.random() * 100
+        });
+      }
+    }
+
+    function drawSnowflakes() {
+      ctx.clearRect(0, 0, width, height);
+      ctx.fillStyle = "white";
+      ctx.beginPath();
+      for (let i = 0; i < snowflakes.length; i++) {
+        let f = snowflakes[i];
+        ctx.moveTo(f.x, f.y);
+        ctx.arc(f.x, f.y, f.r, 0, Math.PI * 2, true);
+      }
+      ctx.fill();
+      moveSnowflakes();
+    }
+
+    let angle = 0;
+    function moveSnowflakes() {
+      angle += 0.01;
+      for (let i = 0; i < snowflakes.length; i++) {
+        let f = snowflakes[i];
+        f.y += Math.cos(angle + f.d) + 1 + f.r / 2;
+        f.x += Math.sin(angle) * 2;
+
+        if (f.y > height) {
+          snowflakes[i] = {
+            x: Math.random() * width,
+            y: 0,
+            r: f.r,
+            d: f.d
+          };
+        }
+      }
+    }
+
+    createSnowflakes();
+    setInterval(drawSnowflakes, 25);
+    window.onresize = () => {
+      width = canvas.width = window.innerWidth;
+      height = canvas.height = window.innerHeight;
+    };
+
+    // Partículas em formato de "7" (linha de partículas)
+    particlesJS("particles-js", {
+      particles: {
+        number: {
+          value: 80, // Número de partículas
+          density: {
+            enable: true,
+            value_area: 300
+          }
+        },
+        color: {
+          value: "#ffffff"
+        },
+        shape: {
+          type: "circle"
+        },
+        opacity: {
+          value: 0.6
+        },
+        size: {
+          value: 5
+        },
+        move: {
+          enable: true,
+          speed: 5, // VELOCIDADE MAIS RÁPIDA AQUI
+          direction: "none",
+          random: true
+        },
+        line_linked: {
+          enable: false
+        }
+      },
+      "interactivity": {
+        "detect_on": "canvas",
+        "events": {
+          "onhover": {
+            "enable": false
+          },
+          "onclick": {
+            "enable": false
+          },
+          "resize": true
+        }
+      },
+      retina_detect: true
+    });
+  </script>
+</body>
+</html>
