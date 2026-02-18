@@ -1,7 +1,7 @@
 <h1 align="center">Guilherme Ribeiro</h1>
 
 <p align="center">
-  🎓 Estudante de Sistemas de Informação | 💻 Desenvolvedor em Formação 5/8 | 🚀 Foco em Estágio em TI ou vaga Junior
+  🎓 Estudante de Sistemas de Informação | 💻 Desenvolvedor em Formação 5/8 | 🚀 Foco em vaga Junior e Estágio em TI.
 </p>
 
 ---
